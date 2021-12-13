@@ -1,0 +1,36 @@
+import collections
+
+def shortrepeat(mystring):
+    #mystring = test1
+    #mystring = "CGCCTGAATCAACTTGAAGTCCTGTCTTGAGTAATCCGTGGGCCCTAACTCACTCATCCCAACTCTTCACTCACTGCCCTGCCCCACACCCTGCCAGGGAGCCTCCCGTGGCACCGTGGGGACACAAAGGAACCAGGGCAAAGCTCCCTCAGCCCCATTCAAAGAGGCCTGGCCCACAGGCTCACGGAAAGTCAGCCTCTCATGCCCCGAGAGCTGAGTGCAAGGGAGAGGCAGCGCTGTCTGTGCTTCCCATGCAGAAGCACCCCCCTCCCACCCCTGTGCAGGCCGGCCTTCGCGGCAGACCACCATACACCACGTTCCAAGCCACACTGAGGCCTCCCTCCAAGCCTGCAGCCCCCATTTCCAGACCCTGCCAGGGCAACCTGCATATCCACCTCCCTACCCTGCCCCCCTCTTCCAGGAGTCTGCCCTATGTGGAGTAAGCACGTGGTTTTCCTCTTCAGCAACTATTTCCTTTTTACTCAAGCAATGGCCCCATTTCCCTTGGGGAATCCATCTCTCTCGCAGGCTTAGTCCCAGAGCTTCAGGTGGGGCTGCCCACAGAGCTCCTCAGTCTAAGCCAAGTGGTGTGTCATAGTCCCCTGGCCCCATTAATGGATTCTGGGATAGACATGAGGACCAAGCCAGGTGGGATGAGTGAGTGTGGCTTCTGGAGGAAGTGGGGACACAGGACAGCAT"
+
+    min_length = 4
+    substrings = [
+        mystring[i:i+j]
+        for i in range(0, len(mystring) - min_length + 1)
+        for j in range(min_length, len(mystring) - i + 1)
+    ]
+
+    counts = {}
+    for substring in substrings:
+        try:  # increase count for existing keys, set for new keys
+             counts[substring] += 1
+        except KeyError:
+             counts[substring] = 1
+    counts = collections.Counter(substrings)
+    #print(counts)
+    #print(substring)
+    # Find item with Max Value in Dictionary
+    itemMaxValue = max(counts.items(), key=lambda x: x[1])
+    #print('Maximum Value in Dictionary : ', itemMaxValue[1])
+    listOfKeys = list()
+    # Iterate over all the items in dictionary to find keys with max value
+    for key, value in counts.items():
+        if value == itemMaxValue[1]:
+            listOfKeys.append(key)
+    #print('Keys with maximum Value in Dictionary : ', listOfKeys)
+    longestshortrepeat = max(listOfKeys, key=len) #that's the most common
+    return longestshortrepeat, itemMaxValue[1]
+    
+    
+    coredata['longestshortrepeat'],coredata['itemMaxValue[1]'] = zip(*coredata.sequence.apply(lambda x: shortrepeat(x)))
